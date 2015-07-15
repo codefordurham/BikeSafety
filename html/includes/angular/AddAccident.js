@@ -68,8 +68,8 @@ function submitCrash(result, data) {
     result.data.push(crashTemplate);
 }
 
-angular.module('BikeSafety').controller('addAccidentController', ['$scope','$location','getCrashesUserSubmitted','dataSettings',
-function ($scope, $location, getCrashesUserSubmitted, dataSettings) {
+angular.module('BikeSafety').controller('addAccidentController', ['$scope','$location','getCrashesUserSubmitted','dataSettings', 'leafletData',
+function ($scope, $location, getCrashesUserSubmitted, dataSettings, leafletData) {
   $scope.dataSettings = dataSettings;
 
   $scope.ambulance = "Unknown";
@@ -164,11 +164,24 @@ function ($scope, $location, getCrashesUserSubmitted, dataSettings) {
             }
         };
         submitCrash(result, newDataPoint);
-        $location.search('latitude',newDataPoint.location.latitude);
-        $location.search('longitude',newDataPoint.location.longitude);
-        $location.search('zoom',19);
+        $location.search({
+            latitude: newDataPoint.location.latitude,
+            longitude: newDataPoint.location.longitude,
+            zoom: 17
+        });
         $location.path("/");
         $scope.accidentPosted = true;
     });
   };
+
+  $scope.$on('$locationChangeSuccess', function() {
+        if ($location.path() == "/") {
+            leafletData.getMap('map_canvas').then(function(map) {
+                map.setView(
+                    [parseFloat($location.search().latitude),parseFloat($location.search().longitude)],
+                    parseInt($location.search().zoom)
+                );
+            });
+        }
+  });
 }]);
