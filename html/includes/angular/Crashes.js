@@ -37,7 +37,18 @@ function ($scope, leafletData) {
     };
     $scope.showCrashes = true;
     $scope.$watch('accidentColor', function(newValue, oldValue) {
-        if (!newValue) { return; }
-        $scope.change();
+        if (!$scope.map) {
+            return;
+        }
+        if (newValue && oldValue === undefined) {
+            $scope.change();
+            return;
+        }
+        for (var i = 0; i < newValue.length; i++) {
+            if (newValue[i] !== oldValue[i]) {
+                $scope.change();
+                return;
+            }
+        }
     });
 }]);

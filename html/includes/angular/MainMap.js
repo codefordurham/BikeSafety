@@ -99,9 +99,7 @@ function ($scope, $location, leafletData, getCrashes, getCrashesUserSubmitted, d
         $scope.$apply();
     });
 
-    $scope.widthScale = d3.scale.linear()
-        .domain([$scope.defaults.minZoom,$scope.defaults.maxZoom])
-        .range([3,0.5]);
+    $scope.widthScale = d3.scale.pow().domain([12, 13, 14, 15, 16, 17]).range([2, 4, 8, 16, 32, 64]);
 
     getCrashes.then(function(result) {
         $scope.crashes = _.values(result);
@@ -124,21 +122,5 @@ function ($scope, $location, leafletData, getCrashes, getCrashesUserSubmitted, d
         }).addTo($scope.map);
     }).catch(function(err) {
         console.error(err);
-    });
-
-    $scope.$on('$locationChangeStart', function(event, event, current) {
-      leafletData.getMap('map_canvas').then(function(map) {
-        debugger;
-          map.setView([parseFloat($location.search('latitude')),parseFloat($location.search('longitude'))])
-      });
-      // var same = $scope.center.lat == $location.search('latitude');
-      // same = same && $scope.center.lng == $location.search('longitude');
-      // same = same && $scope.center.zoom == $location.search('zoom');
-      // if (same) { return; }
-      //
-      // $scope.center.lat = $location.search('latitude');
-      // $scope.center.lng = $location.search('longitude');
-      // $scope.center.zoom = $location.search('zoom');
-      // $scope.$apply();
     });
 }]);
