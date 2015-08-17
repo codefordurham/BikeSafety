@@ -4,7 +4,6 @@ Isidro Razo, 49, was the latest bike rider to die on his way to work in Durham o
 
 The goal of the application is to create color-coded bike routes based on relative risk of accidents, number of crashes, time of day, etc. using the NC bike crash database and bike reported incidents. The application will also highlight troublesome intersections.
 
-
 A snapshot of the master branch is [on heroku](http://bikesafetee.herokuapp.com/). This has been continuous integration server setup with Heroku - ping @dsummersl if its not working for you!
 
 TODO
@@ -15,11 +14,16 @@ TODO
 Overview
 ========
 
-The project uses [Angular]() and [Express]() for the frontend and backend respectively. 
+The project uses [Angular](https://angularjs.org/) and [Express](http://expressjs.com/) for the frontend and backend respectively. 
 
 The project uses NPM to manage server side dependences and bower for angular dependencies. The `npm install` will install both of these dependencies for you.
 
 **Frontend**
+Angular works directly with [Firebase](https://www.firebase.com/). The Angular App uses [Leaflet](http://leafletjs.com/) as the mapping system. 
+
+Firebase is used to store the NCDOT bicycle accident data.
+
+[Jade](http://jade-lang.com/) template renders the html pages. 
 
 **Server**
 
