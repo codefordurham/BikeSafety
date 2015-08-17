@@ -20,11 +20,16 @@ The project uses NPM to manage server side dependences and bower for angular dep
 
 **Frontend**
 
-Angular works directly with [Firebase](https://www.firebase.com/). The Angular App uses [Leaflet](http://leafletjs.com/) as the mapping system. 
+Angular works directly with [Firebase](https://www.firebase.com/). The Angular App uses [Leaflet](http://leafletjs.com/) as the mapping system. Firebase is used to store the NCDOT bicycle accident data. [Jade](http://jade-lang.com/) template renders the html pages. 
 
-Firebase is used to store the NCDOT bicycle accident data.
+[*Main Controllers*](https://github.com/BikeSafety/BikeSafety/tree/master/html/includes/angular)
 
-[Jade](http://jade-lang.com/) template renders the html pages. 
+* [app.js](https://github.com/BikeSafety/BikeSafety/blob/master/html/includes/angular/app.js) loads the data and starts the leaflet map
+* [MainMap.js]() is the angular controller that controls the map, makes its full-screen map and configures map legend 
+* [Crashes.js](https://github.com/BikeSafety/BikeSafety/blob/master/html/includes/angular/Crashes.js) is responsible for drawing the dot in reference to crashes on the map
+* [Paths.js](https://github.com/BikeSafety/BikeSafety/blob/master/html/includes/angular/Paths.js) is responsible for drawing the bicycle paths on the map
+* [UserSubmittedCrashes.js](https://github.com/BikeSafety/BikeSafety/blob/master/html/includes/angular/UserSubmittedCrashes.js) draws the user submitted square dots on the map
+* [AddAccident.js](https://github.com/BikeSafety/BikeSafety/blob/master/html/includes/angular/AddAccident.js) is the control form for user’s self-reporting accidents.
 
 **Server**
 
