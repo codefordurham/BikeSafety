@@ -19,6 +19,7 @@ The project uses [Angular](https://angularjs.org/) and [Express](http://expressj
 The project uses NPM to manage server side dependences and bower for angular dependencies. The `npm install` will install both of these dependencies for you.
 
 **Frontend**
+
 Angular works directly with [Firebase](https://www.firebase.com/). The Angular App uses [Leaflet](http://leafletjs.com/) as the mapping system. 
 
 Firebase is used to store the NCDOT bicycle accident data.
