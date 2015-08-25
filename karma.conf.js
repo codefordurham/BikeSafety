@@ -19,7 +19,7 @@ module.exports = function(config) {
       'html/includes/bower/colorbrewer/colorbrewer.js',
       'html/includes/bower/angular-mocks/angular-mocks.js',
       'html/includes/bower/angular-route/angular-route.js',
-      'html/includes/bower/angular-bootstrap/ui-bootstrap.js',
+      'html/includes/bower/angular-ui-bootstrap-bower/ui-bootstrap.js',
       'html/includes/bower/firebase/firebase.js',
       'html/includes/bower/angularfire/dist/angularfire.js',
       'html/includes/bower/angular-leaflet-directive/dist/angular-leaflet-directive.min.js',
