@@ -121,6 +121,7 @@ function ($scope, leafletData, getCrashes, getCrashesUserSubmitted, dataSettings
             $scope.d3projection = projection;
             $scope.setupAccidentColors();
             $scope.leafletLoaded = true;
+            $('.leaflet-control-layers-toggle').hide()
         }).addTo($scope.map);
     }).catch(function(err) {
         console.error(err);
