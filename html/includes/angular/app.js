@@ -39,7 +39,7 @@ var booleans = [
     'No'
 ];
 var injuries = [
-    'Unknown',
+    'Unknown', 'Routine', 'Immediate', 'Surgical'
 ];
 var races = [
     'Unknown',
@@ -98,8 +98,8 @@ var bikerAndDriver = {
     injury: {
         description: 'Injury',
         type: 'list',
-        options: ["Unknown","Disabling Injury","Evident Injury",
-                  "Killed", "No Injury", "Other Injury","Possible Injury"],
+        options: injuries
+    
     },
     race: {
         description: 'Race',
