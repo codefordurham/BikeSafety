@@ -105,7 +105,7 @@ function ($scope, leafletData, getCrashes, getCrashesUserSubmitted, dataSettings
         .range([3,0.5]);
 
     getCrashes.then(function(result) {
-        $scope.crashes = result;
+        $scope.crashes = _.values(result);
         return leafletData.getMap('map_canvas');
     }).then(function(leafletMap) {
         $scope.map = leafletMap;

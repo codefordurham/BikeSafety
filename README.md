@@ -73,10 +73,8 @@ Data is read from [Code for America Socrata](https://brigades.opendatanetwork.co
 the data. If the data changes or the cleanup process changes, one should
 download the new CSV data and import it:
 
-To do so:
-
 1. Data is stored in the data/ directory.
-1. Start the server with Firebase credentials:
+2. Start the server with Firebase credentials:
 
-    FIREBASE_SECRET=SECRET npm start
-    curl localhost:3000/api/refreshCrashMapping
+    npm run backup-firebase
+    npm run create-firebase

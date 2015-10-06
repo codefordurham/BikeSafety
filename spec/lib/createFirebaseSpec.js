@@ -1,11 +1,11 @@
-var createFirebase = require('../../lib/createFirebase');
+var firebase = require('../../lib/firebase');
 var fs = require('fs');
 var h = require('highland');
 
-describe('createFirebase', function() {
+describe('firebase', function() {
     describe('createFormat()', function() {
         it('returns an empty stream if there is no input', function(done) {
-            h(createFirebase.createFormat(h([])))
+            h(firebase.createFormat(h([])))
                 .errors(function(err,push) {
                     expect(err).toEqual(null);
                 })
@@ -16,7 +16,7 @@ describe('createFirebase', function() {
         });
 
         it('converts a single row', function(done) {
-            h(createFirebase.createFormat(fs.createReadStream(__dirname +'/testrow.csv')))
+            h(firebase.createFormat(fs.createReadStream(__dirname +'/testrow.csv')))
                 .errors(function(err,push) {
                     expect(err).toEqual(null);
                 })
@@ -77,7 +77,7 @@ describe('createFirebase', function() {
         });
 
         it("converts a standard dataset", function(done) {
-            h(createFirebase.createFormat(fs.createReadStream(__dirname +'/testdata.csv')))
+            h(firebase.createFormat(fs.createReadStream(__dirname +'/testdata.csv')))
                 .toArray(function(data) {
                     expect(data.length).toEqual(6);
                     done();
