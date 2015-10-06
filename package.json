@@ -39,14 +39,19 @@
     "postinstall": "./node_modules/.bin/bower -f install",
     "start": "node ./server.js",
     "start-test": "./node_modules/karma/bin/karma start",
-    "test": "./node_modules/karma/bin/karma start --single-run && ./node_modules/.bin/jasmine"
+    "test": "./node_modules/karma/bin/karma start --single-run && ./node_modules/.bin/jasmine",
+    "export-firebase": "node ./bin/export_firebase.js https://bikesafetytwo.firebaseio.com/crashes HjQfDNcylTuOQ1X2GWxcO0QncISe0YXPKl7TcOjG > crashes.json && node ./bin/export_firebase.js https://bikesafetytwo.firebaseio.com/crashes_user_submitted HjQfDNcylTuOQ1X2GWxcO0QncISe0YXPKl7TcOjG > crashes_user_submitted.json",
+    "create-firebase": "node ./bin/create_firebase.js https://bikesafetytwo.firebaseio.com HjQfDNcylTuOQ1X2GWxcO0QncISe0YXPKl7TcOjG"
   },
   "dependencies": {
     "bower": "^1.3.12",
+    "csv": "^0.4.5",
     "ejs": "~2.2.4",
     "express": "~3.19.2",
     "firebase": "~2.2.0",
+    "highland": "^2.5.1",
     "jade": "~1.9.2",
+    "lodash": "^3.8.0",
     "nconf": "~0.7.1"
   },
   "devDependencies": {

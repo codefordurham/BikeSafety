@@ -1,5 +1,7 @@
 var OCEM = angular.module('BikeSafety', ['ngRoute', 'ui.bootstrap', 'ui.mask','firebase', 'leaflet-directive']);
 
+var firebaseURL = "https://bikesafetytwo.firebaseio.com/";
+
 OCEM.constant('_',window._);
 
 OCEM.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
@@ -223,8 +225,8 @@ OCEM.service('getPaths', function($http) {
 OCEM.service('getCrashes', function($q, $firebase) {
     $('#pleaseWaitDialog').modal('show');
     var deferred = $q.defer();
-    var ref = new Firebase('https://bikesafety.firebaseio.com/Crashes_Sanitzed');
-    ref.once('value', function(snapshot){
+    var ref = new Firebase(firebaseURL +'/crashes');
+    ref.orderByChild('location/county').equalTo('Durham').once('value', function(snapshot){
         deferred.resolve(snapshot.val());
         $('#pleaseWaitDialog').modal('hide');
     });
@@ -234,7 +236,7 @@ OCEM.service('getCrashes', function($q, $firebase) {
 OCEM.service('getCrashesUserSubmitted', function($q, $firebase) {
     $('#pleaseWaitDialog').modal('show');
     var deferred = $q.defer();
-    var ref = new Firebase('https://bikesafety.firebaseio.com/CrashesUserSubmitted_Sanitized');
+    var ref = new Firebase(firebaseURL +'/crashes_user_submitted');
     ref.once('value', function(snapshot){
         deferred.resolve({
           data: _.values(snapshot.val()),
