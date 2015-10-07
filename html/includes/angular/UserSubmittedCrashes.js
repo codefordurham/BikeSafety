@@ -10,20 +10,24 @@ function ($scope, leafletData) {
         var eachSquare = function(d) {
             var p = projection.latLngToLayerPoint(L.latLng(d.location.latitude, d.location.longitude));
             var s = d3.select(this);
-            s.attr('x', p.x);
-            s.attr('y', p.y);
-            s.attr('fill', function(d) {
-                return $scope.categoryColors($scope.getDataForOptionString($scope.selectedOption,d));
-            });
-            s.attr('width', $scope.widthScale(zoom)*2);
-            s.attr('height', $scope.widthScale(zoom)*2);
+            var w = $scope.widthScale(zoom)*projection.unitsPerMeter;
+            s.transition().delay(500)
+                .attr('x', p.x - w)
+                .attr('y', p.y - w)
+                .attr('width', w*2)
+                .attr('height', w*2)
+                .attr('fill', function(d) {
+                    return $scope.categoryColors($scope.getDataForOptionString($scope.selectedOption,d));
+                });
         };
 
-        // TODO fade in with a transition() when the data is added
-        selection.selectAll('.userCrash')
-            .data($scope.userCrashes)
-            .each(eachSquare)
-            .enter().append('svg:rect')
+        var d = selection.selectAll('.userCrash')
+            .data($scope.userCrashes);
+
+        d.each(eachSquare);
+
+        d.enter().append('svg:rect')
+            .attr('fill', 'white')
             .each(eachSquare)
             .on('mouseover', function(d) {
               $scope.accident = d;
@@ -45,6 +49,6 @@ function ($scope, leafletData) {
     $scope.showCrashes = true;
     $scope.$watch('accidentColor', function(newValue, oldValue) {
         if (!newValue) { return; }
-        $scope.change();
+            $scope.change();
     });
 }]);

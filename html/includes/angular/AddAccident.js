@@ -65,10 +65,11 @@ function submitCrash(result, data) {
 
     var crash = result.db.push();
     crash.set(crashTemplate);
+    result.data.push(crashTemplate);
 }
 
-angular.module('BikeSafety').controller('addAccidentController', ['$scope','$location','getCrashesUserSubmitted','dataSettings',
-function ($scope, $location, getCrashesUserSubmitted, dataSettings) {
+angular.module('BikeSafety').controller('addAccidentController', ['$scope','$location','getCrashesUserSubmitted','dataSettings', 'leafletData',
+function ($scope, $location, getCrashesUserSubmitted, dataSettings, leafletData) {
   $scope.dataSettings = dataSettings;
 
   $scope.ambulance = "Unknown";
@@ -138,7 +139,7 @@ function ($scope, $location, getCrashesUserSubmitted, dataSettings) {
   $scope.addAccident = function() {
     var dataset;
     getCrashesUserSubmitted.then(function(result) {
-        submitCrash(result, {
+        var newDataPoint = {
             biker: {
                 injury: $scope.bike_injury,
                 sex: $scope.bike_sex,
@@ -161,7 +162,14 @@ function ($scope, $location, getCrashesUserSubmitted, dataSettings) {
                 latitude: $scope.markers.Location.lat,
                 longitude: $scope.markers.Location.lng
             }
+        };
+        submitCrash(result, newDataPoint);
+        $location.search({
+            lat: newDataPoint.location.latitude,
+            lon: newDataPoint.location.longitude,
+            z: 17
         });
+        $location.path("/");
         $scope.accidentPosted = true;
     });
   };
