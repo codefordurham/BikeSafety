@@ -165,23 +165,12 @@ function ($scope, $location, getCrashesUserSubmitted, dataSettings, leafletData)
         };
         submitCrash(result, newDataPoint);
         $location.search({
-            latitude: newDataPoint.location.latitude,
-            longitude: newDataPoint.location.longitude,
-            zoom: 17
+            lat: newDataPoint.location.latitude,
+            lon: newDataPoint.location.longitude,
+            z: 17
         });
         $location.path("/");
         $scope.accidentPosted = true;
     });
   };
-
-  $scope.$on('$locationChangeSuccess', function() {
-        if ($location.path() == "/") {
-            leafletData.getMap('map_canvas').then(function(map) {
-                map.setView(
-                    [parseFloat($location.search().latitude),parseFloat($location.search().longitude)],
-                    parseInt($location.search().zoom)
-                );
-            });
-        }
-  });
 }]);

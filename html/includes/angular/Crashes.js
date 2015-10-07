@@ -5,18 +5,20 @@ function ($scope, leafletData) {
         var eachCircle = function(d) {
             var p = projection.latLngToLayerPoint(L.latLng(d.location.latitude, d.location.longitude));
             var s = d3.select(this);
-            s.attr('cx', p.x);
-            s.attr('cy', p.y);
-            s.attr('fill', function(d) {
-                return $scope.categoryColors($scope.getDataForOptionString($scope.selectedOption,d));
-            });
-            s.attr('r', $scope.widthScale(zoom));
+            s.transition().delay(500)
+                .attr('cx', p.x)
+                .attr('cy', p.y)
+                .attr('fill', function(d) {
+                    return $scope.categoryColors($scope.getDataForOptionString($scope.selectedOption,d));
+                })
+                .attr('r', projection.unitsPerMeter*$scope.widthScale(zoom));
         };
-        // TODO fade in with a transition() when the data is added
+
         selection.selectAll('.crash')
             .data($scope.crashes)
             .each(eachCircle)
             .enter().append('svg:circle')
+            .attr('fill', 'white')
             .each(eachCircle)
             .on('mouseover', function(d) {
               $scope.accident = d;
@@ -37,18 +39,7 @@ function ($scope, leafletData) {
     };
     $scope.showCrashes = true;
     $scope.$watch('accidentColor', function(newValue, oldValue) {
-        if (!$scope.map) {
-            return;
-        }
-        if (newValue && oldValue === undefined) {
+        if (!newValue) { return; }
             $scope.change();
-            return;
-        }
-        for (var i = 0; i < newValue.length; i++) {
-            if (newValue[i] !== oldValue[i]) {
-                $scope.change();
-                return;
-            }
-        }
     });
 }]);

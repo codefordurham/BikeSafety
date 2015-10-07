@@ -47,10 +47,14 @@ function ($scope, $location, leafletData, getCrashes, getCrashesUserSubmitted, d
         maxZoom: 17,
         minZoom: 12
     };
+    // If there is location & zoom GET params, use those values if they
+    // parse:
+    var z = parseInt($location.search().z);
     $scope.center = {
-        lat: 35.9886,
-        lng: -78.9072,
-        zoom: 12
+        lat: parseFloat($location.search().lat) || 35.9886,
+        lng: parseFloat($location.search().lon) || -78.9072,
+        // respect min/max
+        zoom: _.inRange(z,$scope.defaults.minZoom,$scope.defaults.maxZoom+1) ? z:$scope.defaults.minZoom
     };
     $scope.layers = {
         baselayers: {
@@ -99,7 +103,10 @@ function ($scope, $location, leafletData, getCrashes, getCrashesUserSubmitted, d
         $scope.$apply();
     });
 
-    $scope.widthScale = d3.scale.pow().domain([12, 13, 14, 15, 16, 17]).range([2, 4, 8, 16, 32, 64]);
+    // account for the change in 'units per pixel' on the map:
+    $scope.widthScale = d3.scale.linear()
+        .domain([$scope.defaults.minZoom,$scope.defaults.maxZoom])
+        .range([3/0.025,0.5/0.025]);
 
     getCrashes.then(function(result) {
         $scope.crashes = _.values(result);
@@ -118,7 +125,7 @@ function ($scope, $location, leafletData, getCrashes, getCrashesUserSubmitted, d
             $scope.d3projection = projection;
             $scope.setupAccidentColors();
             $scope.leafletLoaded = true;
-            $('.leaflet-control-layers-toggle').hide()
+            $('.leaflet-control-layers-toggle').hide();
         }).addTo($scope.map);
     }).catch(function(err) {
         console.error(err);
