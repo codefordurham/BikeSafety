@@ -77,6 +77,14 @@ download the new CSV data and import it:
 2. Start the server with Firebase credentials:
 
 ```
-    npm run export-firebase
-    npm run create-firebase
+# export both crashes and user submitted crashes to local JSON files
+npm run export-firebase
+
+# recreate crashes database from NCDOT data.
+npm run create-firebase
+
+# replace crashes database with contents of local JSON file:
+npm run import-firebase -- crashes crashes.json
+# replace user submitted crashes database with contents of local JSON file:
+npm run import-firebase -- crashes_user_submitted crashes_user_submitted.json
 ```

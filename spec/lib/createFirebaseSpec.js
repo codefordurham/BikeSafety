@@ -84,11 +84,4 @@ describe('firebase', function() {
                 });
         });
     });
-
-    describe('createTable()', function() {
-        // TODO mock firebase
-        it('does nothing if there is no data', function(done) {
-          done();
-        });
-    });
 });
