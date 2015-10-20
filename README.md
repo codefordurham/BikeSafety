@@ -76,6 +76,7 @@ download the new CSV data and import it:
 1. Data is stored in the data/ directory.
 2. Start the server with Firebase credentials:
 
-
+```
     npm run export-firebase
     npm run create-firebase
+```
