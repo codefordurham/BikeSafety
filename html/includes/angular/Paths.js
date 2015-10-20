@@ -55,7 +55,7 @@ function ($scope, leafletData, getPaths) {
             $scope.d3selection.selectAll('.bikepath')
                 .data(roads)
                 .attr('d',path)
-                .attr('stroke-width', $scope.widthScale(zoom) +'px')
+                .attr('stroke-width', '1px')
                 .enter().append('svg:path')
                 .attr('d',path)
                 .attr('opacity', function(d, i) {
@@ -64,7 +64,7 @@ function ($scope, leafletData, getPaths) {
                 .attr('stroke', function(d, i) {
                     return roadColor(d.severityCount);
                 })
-                .attr('stroke-width', $scope.widthScale(zoom) +'px')
+                .attr('stroke-width', '1px')
                 .on('mouseover', function(d) {
                   $scope.wrecks = d.wrecks;
                 })
