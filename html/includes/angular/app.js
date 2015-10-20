@@ -152,7 +152,23 @@ _.each(driver, function(v) {
     v.description = 'Driver '+ v.description;
 });
 driver.vehicle_type = {
-    description: 'Vehicle Type'
+    description: 'Vehicle Type',
+    options: [
+        "Unknown",
+        "Commercial Bus",
+        "Heavy Truck",
+        "Light Truck (Mini-Van, Panel)",
+        "Motorcycle",
+        "Passenger Car",
+        "Pedalcycle",
+        "Pickup",
+        "Police",
+        "School Bus",
+        "Single Unit Truck (2-Axle, 6-Tire)",
+        "Sport Utility",
+        "Van"
+    ],
+    colors: unknownColoringFunction
 };
 
 // The key names listed below match the column names in the Firebase table:
