@@ -209,7 +209,22 @@ var dataSetMapping = {
                 'Cloudy',
                 'Rain'
             ],
-            colors: unknownColoringFunction
+            colors: function(d) {
+                switch(d) {
+                    case 'Unknown':
+                        return UNKNOWN_COLOR;
+                    case 'Clear':
+                        return '#aec7e8';
+                    case 'Cloudy':
+                        return '#c5b0d5';
+                    case 'Rain':
+                        return '#1f77b4';
+                    case 'Other':
+                        return '#e377c2';
+                    default:
+                        return UNKNOWN_COLOR;
+                }
+            }
         },
         workzone: {}
     },
