@@ -57,9 +57,7 @@ var booleanColorsFunction = function(d) {
         Female: '#4E98C6',
         No: '#FA6019',
         Yes: '#4E98C6',
-        Unknown: '#AFAF6E',
-        Missing: '#AFAF6E', // TODO when we clean up the data, this can go away
-        "": '#AFAF6E' // TODO when we clean up the data, this can go away
+        Unknown: '#AFAF6E'
     };
     return booleanColors[d];
 };
@@ -79,9 +77,7 @@ var speeds = [
     '56-60 mph'
 ];
 var speedColorMap = makeMapColoredLinearly(speeds.slice(1),colorbrewer.RdYlGn[10].reverse());
-// TODO when the data is cleaned up this can go away
 speedColorMap.Unknown = '#AFAF6E';
-speedColorMap[''] = '#AFAF6E';
 var speedColorsFunction = function(d) {
     return speedColorMap[d];
 };
