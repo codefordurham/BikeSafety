@@ -50,6 +50,7 @@ var races = [
     'White',
     'Other'
 ];
+var UNKNOWN_COLOR = '#aaaaaa';
 var genders = [ 'Unknown', 'Female', 'Male' ];
 var booleanColorsFunction = function(d) {
     var booleanColors = {
@@ -57,7 +58,7 @@ var booleanColorsFunction = function(d) {
         Female: '#4E98C6',
         No: '#FA6019',
         Yes: '#4E98C6',
-        Unknown: '#AFAF6E'
+        Unknown: UNKNOWN_COLOR
     };
     return booleanColors[d];
 };
@@ -77,9 +78,18 @@ var speeds = [
     '56-60 mph'
 ];
 var speedColorMap = makeMapColoredLinearly(speeds.slice(1),colorbrewer.RdYlGn[10].reverse());
-speedColorMap.Unknown = '#AFAF6E';
+speedColorMap.Unknown = UNKNOWN_COLOR;
 var speedColorsFunction = function(d) {
     return speedColorMap[d];
+};
+
+// Provide a conisistent coloring for 'Unknown' values
+var defaultColoring = d3.scale.category10();
+var unknownColoringFunction = function(d) {
+    if (d === 'Unknown') {
+        return UNKNOWN_COLOR;
+    }
+    return defaultColoring(d);
 };
 
 var bikerAndDriver = {
@@ -95,13 +105,14 @@ var bikerAndDriver = {
     injury: {
         description: 'Injury',
         type: 'list',
-        options: injuries
-    
+        options: injuries,
+        colors: unknownColoringFunction
     },
     race: {
         description: 'Race',
         type: 'list',
-        options: races
+        options: races,
+        colors: unknownColoringFunction
     },
     sex: {
         description: 'Gender',
@@ -117,12 +128,14 @@ biker.position = {
             "Non-Roadway", "Not Applicable", "Other",
             "Sidewalk / Crosswalk / Driveway Crossing",
             ],
-    description: 'Location'
+    description: 'Location',
+    colors: unknownColoringFunction
 };
 biker.direction = {
     options: ["Unknown","Facing Traffic","With Traffic",
               "Not Applicable"],
-    description: 'Direction'
+    description: 'Direction',
+    colors: unknownColoringFunction
 };
 _.each(biker, function(v) {
     v.description = 'Bicyclist '+ v.description;
@@ -179,7 +192,8 @@ var dataSetMapping = {
                 'Clear',
                 'Cloudy',
                 'Rain'
-            ]
+            ],
+            colors: unknownColoringFunction
         },
         workzone: {}
     },
