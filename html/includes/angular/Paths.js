@@ -75,10 +75,6 @@ function ($scope, leafletData, getPaths) {
         });
     };
     $scope.showRoad = false;
-    $scope.$watch('leafletLoaded', function(newValue, oldValue) {
-        if (!newValue) { return; }
-        $scope.change();
-    });
     $scope.$watch('selectedOption', function(newValue, oldValue) {
         if (!newValue) { return; }
         $scope.change();

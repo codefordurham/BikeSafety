@@ -13,11 +13,11 @@ div.panel.panel-default#legend(Title="Legend")
                   div.legend-line(ng-repeat="value in accidentLabel")
                       div.legend-circle.inline(style="background-color: {{categoryColors(value)}}")
                       div.legend-label.inline {{value}}
-                      span.legend-action.glyphicon.glyphicon-flag
                       span.legend-action.glyphicon.glyphicon-remove
+                      span.legend-action.glyphicon.glyphicon-flag
               hr
 
-          div Showing all accidents
+          div {{filterDescription()}}
               hr
 
           div(ng-controller="pathController")

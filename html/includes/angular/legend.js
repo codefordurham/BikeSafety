@@ -6,6 +6,9 @@ function ($scope) {
     $scope.accidentLabel = [];
     $scope.accidentColor = [];
     $scope.selectedOption = null;
+    $scope.filterDescription = function() {
+        return 'All accidents';
+    };
 
     $('#color_combo').change(function() {
         $scope.setupAccidentColors();
@@ -33,7 +36,5 @@ function ($scope) {
         }
     };
 
-    $scope.$watch('leafletLoaded', function(newValue, oldValue) {
-        $scope.setupAccidentColors();
-    });
+    $scope.$watch('leafletLoaded', $scope.setupAccidentColors);
 }]);

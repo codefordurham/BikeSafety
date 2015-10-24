@@ -30,16 +30,13 @@ function ($scope, leafletData) {
             .attr('class','crash');
     };
 
-    $scope.change = function() {
+    $scope.showCrashes = true;
+    $scope.$watch('selectedOption', function(newValue) {
+        if (!newValue) { return; }
         if (!$scope.showCrashes) {
             $scope.d3selection.selectAll('.crash').remove();
             return;
         }
         updateMapFn($scope.d3selection, $scope.d3projection);
-    };
-    $scope.showCrashes = true;
-    $scope.$watch('selectedOption', function(newValue, oldValue) {
-        if (!newValue) { return; }
-        $scope.change();
     });
 }]);
