@@ -3,28 +3,38 @@ div.panel.panel-default#legend(Title="Legend")
   div.panel-heading
       h3.panel-title Legend
   div.panel-body
-      div(ng-controller="pathController")
-          input(type="checkbox" ng-change="change()" ng-model="showRoad")
-          | Show Paths
-          div.roadLegend(ng-show="showRoad")
-              div # Accidents on Road:
+      div(ng-controller="legendController")
+          div.inline Color accidents by&nbsp;&nbsp;
+          select#color_combo
+              option(ng-repeat="(key,value) in keyToHumanReadables" value="{{key}}" ng-selected="{{colorAccidentsBy == key}}") {{value}}
+
+          div.accidentLegend
               div.rows
+                  div.legend-line(ng-repeat="value in accidentLabel")
+                      div.legend-circle.inline(style="background-color: {{categoryColors(value)}}")
+                      div.legend-label.inline {{value}}
+                      span.legend-action.glyphicon.glyphicon-flag
+                      span.legend-action.glyphicon.glyphicon-remove
               hr
 
-      div.inline Color accidents by&nbsp;&nbsp;
-      select#color_combo
-        option(ng-repeat="(key,value) in keyToHumanReadables" value="{{key}}" ng-selected="{{colorAccidentsBy == key}}") {{value}}
-      div.accidentLegend
-          div.rows
-          hr
+          div Showing all accidents
+              hr
 
-      div(ng-controller="crashesController" id="crashesController")
-          input(type="checkbox" ng-change="change()" ng-model="showCrashes")
-          | Show Crashes (circles)
+          div(ng-controller="pathController")
+              input(type="checkbox" ng-change="change()" ng-model="showRoad")
+              | Show Paths
+              div.roadLegend(ng-show="showRoad")
+                  div # Accidents on Road:
+                  div.rows
+                  hr
 
-      div(ng-controller="userContributedCrashesController" id="userContributedCrashesController")
-          input(type="checkbox" ng-change="change()" ng-model="showCrashes")
-          | Show User Contributed Crashes (squares)
+          div(ng-controller="crashesController" id="crashesController")
+              input(type="checkbox" ng-change="change()" ng-model="showCrashes")
+              | Show Crashes (circles)
+
+          div(ng-controller="userContributedCrashesController" id="userContributedCrashesController")
+              input(type="checkbox" ng-change="change()" ng-model="showCrashes")
+              | Show User Contributed Crashes (squares)
 
       hr
       div#legend_detail
