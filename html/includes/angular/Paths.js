@@ -1,6 +1,7 @@
 OCEM.controller('pathController', ['$scope','leafletData','getPaths',
 function ($scope, leafletData, getPaths) {
     $scope.change = function() {
+        if (!$scope.map) { return; }
         d3.select('#legend .roadLegend .rows')
             .selectAll('div')
             .remove();

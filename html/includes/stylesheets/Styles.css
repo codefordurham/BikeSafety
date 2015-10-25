@@ -54,13 +54,15 @@ body {
 .legend-label {
   padding-left: 5px;
 }
-/* TODO make the glyphs invisible or gray when not selected */
 .legend-action {
     color: lightgray;
     float: right;
 }
-.legend-action:hover {
+.legend-action-selected {
     color: black;
+}
+.legend-action:hover {
+    color: darkgray;
 }
 .accidentLegend .legend-circle {
   border-radius: 50%;

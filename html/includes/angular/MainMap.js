@@ -29,6 +29,8 @@ function ($scope, $location, leafletData, getCrashes, getCrashesUserSubmitted, d
     //   option: like 'biker.alcohol'
     //   data: The data to select from. If not supplied then this function
     //   returns the schema data from dataSettings.
+    //
+    // Returns metadata.
     $scope.getDataForOptionString = function(option,data) {
         var categoryAndMetric = option.split('.');
         if (data) {
@@ -36,8 +38,6 @@ function ($scope, $location, leafletData, getCrashes, getCrashesUserSubmitted, d
         }
         return dataSettings.data(categoryAndMetric[0],categoryAndMetric[1]);
     };
-
-    $scope.metadata = $scope.getDataForOptionString('biker.alcohol');
 
     $scope.wrecks = [];
     $scope.accident = null;

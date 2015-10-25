@@ -5,19 +5,26 @@ div.panel.panel-default#legend(Title="Legend")
   div.panel-body
       div(ng-controller="legendController")
           div.inline Color accidents by&nbsp;&nbsp;
-          select#color_combo
+          select#color_combo(ng-model="selectedOption" ng-change="setupAccidentColors()")
               option(ng-repeat="(key,value) in keyToHumanReadables" value="{{key}}" ng-selected="{{colorAccidentsBy == key}}") {{value}}
 
           div.accidentLegend
               div.rows
-                  div.legend-line(ng-repeat="value in accidentLabel")
+                  div.legend-line(ng-repeat="value in accidentLabels")
                       div.legend-circle.inline(style="background-color: {{categoryColors(value)}}")
                       div.legend-label.inline {{value}}
-                      span.legend-action.glyphicon.glyphicon-remove
-                      span.legend-action.glyphicon.glyphicon-flag
+                      span.legend-action.glyphicon.glyphicon-remove(ng-click="toggleRemove(value)" class="{{removeClass(value)}}")
+                      span.legend-action.glyphicon.glyphicon-plus(ng-click="toggleFlag(value)" class="{{flagClass(value)}}")
               hr
 
-          div {{filterDescription()}}
+          div 
+              div {{filterDescription}}
+              div(ng-if="!_.every(whitelist,_.isEmpty)") ...matches any of...
+                  ul
+                      li(ng-repeat="(key,value) in whitelist") {{keyToHumanReadables[key]}} equals {{value}}
+              div(ng-if="!_.every(blacklist,_.isEmpty)") ...does NOT have any of...
+                  ul
+                      li(ng-repeat="(key,value) in blacklist") {{keyToHumanReadables[key]}} equals {{value}}
               hr
 
           div(ng-controller="pathController")

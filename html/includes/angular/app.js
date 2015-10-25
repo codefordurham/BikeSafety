@@ -40,7 +40,7 @@ var booleans = [
     'Yes',
     'No'
 ];
-var injuries = ['Unknown', 'Routine', 'Immediate', 'Surgical'];
+var injuries = ['Unknown', 'No Injury', 'Evident Injury', 'Disabling Injury'];
 
 var races = [
     'Unknown',
