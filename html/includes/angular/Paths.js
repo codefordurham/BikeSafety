@@ -1,6 +1,7 @@
 OCEM.controller('pathController', ['$scope','leafletData','getPaths',
 function ($scope, leafletData, getPaths) {
     $scope.change = function() {
+        if (!$scope.map) { return; }
         d3.select('#legend .roadLegend .rows')
             .selectAll('div')
             .remove();
@@ -75,11 +76,7 @@ function ($scope, leafletData, getPaths) {
         });
     };
     $scope.showRoad = false;
-    $scope.$watch('leafletLoaded', function(newValue, oldValue) {
-        if (!newValue) { return; }
-        $scope.change();
-    });
-    $scope.$watch('accidentColor', function(newValue, oldValue) {
+    $scope.$watch('selectedOption', function(newValue, oldValue) {
         if (!newValue) { return; }
         $scope.change();
     });

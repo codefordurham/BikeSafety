@@ -29,6 +29,8 @@ function ($scope, $location, leafletData, getCrashes, getCrashesUserSubmitted, d
     //   option: like 'biker.alcohol'
     //   data: The data to select from. If not supplied then this function
     //   returns the schema data from dataSettings.
+    //
+    // Returns metadata.
     $scope.getDataForOptionString = function(option,data) {
         var categoryAndMetric = option.split('.');
         if (data) {
@@ -36,8 +38,6 @@ function ($scope, $location, leafletData, getCrashes, getCrashesUserSubmitted, d
         }
         return dataSettings.data(categoryAndMetric[0],categoryAndMetric[1]);
     };
-
-    $scope.metadata = $scope.getDataForOptionString('biker.alcohol');
 
     $scope.wrecks = [];
     $scope.accident = null;
@@ -66,43 +66,6 @@ function ($scope, $location, leafletData, getCrashes, getCrashesUserSubmitted, d
         }
     };
 
-    $scope.setupAccidentColors = function() {
-        $scope.selectedOption = $('#color_combo option:selected').val();
-        $scope.metadata = $scope.getDataForOptionString($scope.selectedOption);
-        $scope.categoryColors = d3.scale.category10();
-        if (_.has($scope.metadata,'colors')) {
-            $scope.categoryColors = $scope.metadata.colors;
-        }
-        // Trim the bike_injur field b/c some of the fields have " Injury"
-        // and others have "Injury".
-        $scope.accidentLabel = d3.set($scope.crashes.concat($scope.userCrashes).map(function(d) {
-            return $scope.getDataForOptionString($scope.selectedOption,d);
-        })).values();
-        if (_.has($scope.metadata,'options')) {
-          // Append any missing values to the end of the values that we expect
-          // for this data type:
-          var extraValues = _.difference($scope.accidentLabel,$scope.metadata.options);
-          $scope.accidentLabel = $scope.metadata.options.concat(extraValues);
-        }
-        $scope.accidentColor = _.map($scope.accidentLabel, function(type) {
-            return $scope.categoryColors(type);
-        });
-        d3.select('.accidentLegend .rows')
-            .selectAll('div')
-            .remove();
-        d3.select('.accidentLegend .rows')
-            .selectAll('div')
-            .data($scope.accidentLabel)
-            .enter().append('div')
-            .html(function(d, i) {
-                return '<div class="legend-line"><div class="legend-circle inline" style="background-color:'+ $scope.accidentColor[i] +'"></div><div class="legend-label inline">'+ d +'</div></div>';
-            });
-    };
-    $('#color_combo').change(function() {
-        $scope.setupAccidentColors();
-        $scope.$apply();
-    });
-
     // account for the change in 'units per pixel' on the map:
     $scope.widthScale = d3.scale.linear()
         .domain([$scope.defaults.minZoom,$scope.defaults.maxZoom])
@@ -123,7 +86,6 @@ function ($scope, $location, leafletData, getCrashes, getCrashesUserSubmitted, d
         L.d3SvgOverlay(function(selection, projection) {
             $scope.d3selection = selection;
             $scope.d3projection = projection;
-            $scope.setupAccidentColors();
             $scope.leafletLoaded = true;
             $('.leaflet-control-layers-toggle').hide();
         }).addTo($scope.map);

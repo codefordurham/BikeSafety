@@ -1,6 +1,7 @@
 OCEM.controller('crashesController', ['$scope','leafletData',
 function ($scope, leafletData) {
     var updateMapFn = function(selection,projection) {
+        if (!$scope.map) { return; }
         var zoom = $scope.map.getZoom();
         var eachCircle = function(d) {
             var p = projection.latLngToLayerPoint(L.latLng(d.location.latitude, d.location.longitude));
@@ -14,10 +15,11 @@ function ($scope, leafletData) {
                 .attr('r', projection.unitsPerMeter*$scope.widthScale(zoom));
         };
 
-        selection.selectAll('.crash')
-            .data($scope.crashes)
-            .each(eachCircle)
-            .enter().append('svg:circle')
+        var d = selection.selectAll('.crash')
+            .data($scope.filteredCrashes, function(d) { return d.crash.timestamp + d.location.latitude + d.location.longitude; })
+            .each(eachCircle);
+
+        d.enter().append('svg:circle')
             .attr('fill', 'white')
             .each(eachCircle)
             .on('mouseover', function(d) {
@@ -28,18 +30,29 @@ function ($scope, leafletData) {
             })
             .attr('opacity', 0.7)
             .attr('class','crash');
+
+        d.exit()
+            .transition().delay(500)
+            .attr('opacity', 0)
+            .remove();
     };
 
-    $scope.change = function() {
+    $scope.showCrashes = true;
+    $scope.$watch('filteredCrashes', function() {
+        if (!$scope.showCrashes) {
+            $scope.d3selection.selectAll('.crash').remove();
+            return;
+        }
+        updateMapFn($scope.d3selection, $scope.d3projection);
+    });
+    var callUpdateFnWithD3 = function() {
         if (!$scope.showCrashes) {
             $scope.d3selection.selectAll('.crash').remove();
             return;
         }
         updateMapFn($scope.d3selection, $scope.d3projection);
     };
-    $scope.showCrashes = true;
-    $scope.$watch('accidentColor', function(newValue, oldValue) {
-        if (!newValue) { return; }
-            $scope.change();
-    });
+    $scope.$watch('filteredCrashes', callUpdateFnWithD3);
+    $scope.$watch('selectedOption', callUpdateFnWithD3);
+    $scope.$watch('showCrashes', callUpdateFnWithD3);
 }]);

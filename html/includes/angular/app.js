@@ -40,7 +40,7 @@ var booleans = [
     'Yes',
     'No'
 ];
-var injuries = ['Unknown', 'Routine', 'Immediate', 'Surgical'];
+var injuries = ['Unknown', 'No Injury', 'Evident Injury', 'Disabling Injury'];
 
 var races = [
     'Unknown',
@@ -187,7 +187,7 @@ var dataSetMapping = {
     biker: biker,
     crash: {
         ambulance: {
-            description: 'Ambulance Called?',
+            description: 'Ambulance Called',
             type: 'list',
             options: booleans,
             colors: booleanColorsFunction

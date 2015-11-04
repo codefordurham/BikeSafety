@@ -1,11 +1,7 @@
 OCEM.controller('userContributedCrashesController', ['$scope','leafletData',
 function ($scope, leafletData) {
-    $('#color_combo').change(function(el) {
-      $scope.colorAccidentsBy = $('#color_combo option:selected').val();
-      updateMapFn($scope.d3selection, $scope.d3projection);
-    });
-
     var updateMapFn = function(selection,projection) {
+        if (!$scope.map) { return; }
         var zoom = $scope.map.getZoom();
         var eachSquare = function(d) {
             var p = projection.latLngToLayerPoint(L.latLng(d.location.latitude, d.location.longitude));
@@ -22,7 +18,7 @@ function ($scope, leafletData) {
         };
 
         var d = selection.selectAll('.userCrash')
-            .data($scope.userCrashes);
+            .data($scope.filteredUserCrashes, function(d) { return d.crash.timestamp + d.location.latitude + d.location.longitude; })
 
         d.each(eachSquare);
 
@@ -37,18 +33,22 @@ function ($scope, leafletData) {
             })
             .attr('opacity', 0.7)
             .attr('class','userCrash');
+
+        d.exit()
+            .transition().delay(500)
+            .attr('opacity', 0)
+            .remove();
     };
 
-    $scope.change = function() {
+    $scope.showCrashes = true;
+    var callUpdateFnWithD3 = function() {
         if (!$scope.showCrashes) {
             $scope.d3selection.selectAll('.userCrash').remove();
             return;
         }
         updateMapFn($scope.d3selection, $scope.d3projection);
     };
-    $scope.showCrashes = true;
-    $scope.$watch('accidentColor', function(newValue, oldValue) {
-        if (!newValue) { return; }
-            $scope.change();
-    });
+    $scope.$watch('filteredCrashes', callUpdateFnWithD3);
+    $scope.$watch('selectedOption', callUpdateFnWithD3);
+    $scope.$watch('showCrashes', callUpdateFnWithD3);
 }]);
