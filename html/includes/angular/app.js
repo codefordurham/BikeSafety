@@ -97,7 +97,7 @@ var bikerAndDriver = {
         description: 'Age'
     },
     alcohol: {
-        description: 'Drunk?',
+        description: 'Intoxicated',
         type: 'list',
         options: booleans,
         colors: booleanColorsFunction,
