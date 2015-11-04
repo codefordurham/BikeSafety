@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/bikesafety/bikesafety.png?label=ready&title=Ready)](https://waffle.io/bikesafety/bikesafety)
 Overview
 --------
 Isidro Razo, 49, was the latest bike rider to die on his way to work in Durham on May 25th on Angier Avenue. That makes four bike-related victims in the past 6 months in Durham. Despite deadly and risky biking conditions in Durham, the transition to a more bike-friendly community is slow and infrastructure budgets are not being accelerated. Policy makers need good data to know where to prioritize new bike plan infrastructure to make roadways safer. Bikers and would-be bikers need to know the safest routes and danger zones as they begin to bike more often to more places.
