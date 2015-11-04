@@ -187,7 +187,7 @@ var dataSetMapping = {
     biker: biker,
     crash: {
         ambulance: {
-            description: 'Ambulance Called?',
+            description: 'Ambulance Called',
             type: 'list',
             options: booleans,
             colors: booleanColorsFunction

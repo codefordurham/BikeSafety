@@ -92,13 +92,20 @@ function ($scope) {
     $scope.toggleFlag = _.flow(_.partial(toggleList,$scope.whitelist,$scope.blacklist),updateFilterDescripton);
 
     var toggleIconClass = function(list,item) {
-        if (_.includes(list[$scope.selectedOption],item)) {
-            return 'legend-action-selected';
-        }
-        return '';
+        return _.includes(list[$scope.selectedOption],item) ? 'legend-action-selected':'';
     };
     $scope.removeClass = _.partial(toggleIconClass,$scope.blacklist);
     $scope.flagClass = _.partial(toggleIconClass,$scope.whitelist);
+
+    $scope.clearLists = function() {
+        _.each($scope.whitelist, function(n, key) {
+            $scope.whitelist[key] = [];
+        });
+        _.each($scope.blacklist, function(n, key) {
+            $scope.blacklist[key] = [];
+        });
+        updateFilterDescripton();
+    };
 
     $scope.$watch('leafletLoaded', $scope.setupAccidentColors);
     $scope.$watch('crashes', updateFilterDescripton);

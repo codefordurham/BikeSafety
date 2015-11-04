@@ -4,8 +4,8 @@ div.panel.panel-default#legend(Title="Legend")
       h3.panel-title Legend
   div.panel-body
       div(ng-controller="legendController")
-          div.inline Color accidents by&nbsp;&nbsp;
-          select#color_combo(ng-model="selectedOption" ng-change="setupAccidentColors()")
+          div.inline Accidents colored by:
+          select.form-control#color_combo(ng-model="selectedOption" ng-change="setupAccidentColors()")
               option(ng-repeat="(key,value) in keyToHumanReadables" value="{{key}}" ng-selected="{{colorAccidentsBy == key}}") {{value}}
 
           div.accidentLegend
@@ -26,6 +26,7 @@ div.panel.panel-default#legend(Title="Legend")
                   ul
                       li(ng-repeat="(key,value) in blacklist") {{keyToHumanReadables[key]}} = {{value.join(',')}}
               hr
+              button.btn.btn-default.pull-right(ng-if="!_.every(whitelist,_.isEmpty) || !_.every(blacklist,_.isEmpty)" ng-click="clearLists()") Clear
 
           div(ng-controller="pathController")
               input(type="checkbox" ng-change="change()" ng-model="showRoad")
