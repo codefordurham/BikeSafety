@@ -18,13 +18,13 @@ div.panel.panel-default#legend(Title="Legend")
               hr
 
           div 
-              div {{filterDescription}}
-              div(ng-if="!_.every(whitelist,_.isEmpty)") ...matches any of...
+              em {{filterDescription}}
+              em(ng-if="!_.every(whitelist,_.isEmpty)") matches any of...
                   ul
-                      li(ng-repeat="(key,value) in whitelist") {{keyToHumanReadables[key]}} equals {{value}}
-              div(ng-if="!_.every(blacklist,_.isEmpty)") ...does NOT have any of...
+                      li(ng-repeat="(key,value) in whitelist") {{keyToHumanReadables[key]}} = {{value.join(',')}}
+              em(ng-if="!_.every(blacklist,_.isEmpty)") does NOT have any of...
                   ul
-                      li(ng-repeat="(key,value) in blacklist") {{keyToHumanReadables[key]}} equals {{value}}
+                      li(ng-repeat="(key,value) in blacklist") {{keyToHumanReadables[key]}} = {{value.join(',')}}
               hr
 
           div(ng-controller="pathController")

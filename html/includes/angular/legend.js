@@ -44,7 +44,7 @@ function ($scope) {
             $scope.filterDescription = DEFAULT_DESCRIPTION;
             return;
         }
-        $scope.filterDescription = 'This map shows accidents that...';
+        $scope.filterDescription = 'This map shows accidents that ';
     };
 
     $scope.setupAccidentColors = function() {
