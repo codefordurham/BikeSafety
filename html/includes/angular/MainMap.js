@@ -6,9 +6,15 @@ function ($scope, $location, leafletData, getCrashes, getCrashesUserSubmitted, d
     // draw on (data is loaded and leaflet is setup):
     $scope.leafletLoaded = false;
 
+    // keyToHumanReadables defines the kinds of data that will show up on the
+    // map legend (things you can color the accidents by). If its not defined
+    // here its NOT on the map!
     $scope.keyToHumanReadables = {};
     $scope.keyToHumanReadables['crash.ambulance'] = dataSettings.description('crash','ambulance');
     $scope.keyToHumanReadables['crash.weather'] = dataSettings.description('crash','weather');
+    $scope.keyToHumanReadables['crash.light_conditions'] = dataSettings.description('crash','light_conditions');
+    $scope.keyToHumanReadables['crash.road_conditions'] = dataSettings.description('crash','road_conditions');
+    $scope.keyToHumanReadables['crash.workzone'] = dataSettings.description('crash','workzone');
     $scope.keyToHumanReadables['biker.alcohol'] = dataSettings.description('biker','alcohol');
     $scope.keyToHumanReadables['biker.injury'] = dataSettings.description('biker','injury');
     $scope.keyToHumanReadables['biker.race'] = dataSettings.description('biker','race');
@@ -21,7 +27,6 @@ function ($scope, $location, leafletData, getCrashes, getCrashesUserSubmitted, d
     $scope.keyToHumanReadables['driver.sex'] = dataSettings.description('driver','sex');
     $scope.keyToHumanReadables['driver.estimated_speed'] = dataSettings.description('driver','estimated_speed');
     $scope.keyToHumanReadables['driver.vehicle_type'] = dataSettings.description('driver','vehicle_type');
-    // TODO biker.age - increments of 5 years?
 
     // Get the schema metadata for an option, or the data for an option.
     //

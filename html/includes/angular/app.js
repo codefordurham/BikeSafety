@@ -52,15 +52,22 @@ var races = [
 ];
 var UNKNOWN_COLOR = '#aaaaaa';
 var genders = [ 'Unknown', 'Female', 'Male' ];
-var booleanColorsFunction = function(d) {
-    var booleanColors = {
-        Male: '#FA6019',
-        Female: '#4E98C6',
-        No: '#FA6019',
-        Yes: '#4E98C6',
-        Unknown: UNKNOWN_COLOR
+// Given a dictionary of legend descriptions, return the color points to, and
+// also take care of the 'Unknown' coloring
+var mapColorToDictionaryFunction = function(map) {
+    return function(d) {
+        if (d in map) {
+            return map[d];
+        }
+        if (d === 'Unknown') {
+            return UNKNOWN_COLOR;
+        }
+        return 'hotpink';
     };
-    return booleanColors[d];
+};
+var yesNoMap = {
+    No: '#FA6019',
+    Yes: '#4E98C6'
 };
 var speeds = [
     'Unknown',
@@ -100,7 +107,7 @@ var bikerAndDriver = {
         description: 'Intoxicated',
         type: 'list',
         options: booleans,
-        colors: booleanColorsFunction,
+        colors: mapColorToDictionaryFunction(yesNoMap)
     },
     injury: {
         description: 'Injury',
@@ -118,7 +125,10 @@ var bikerAndDriver = {
         description: 'Gender',
         type: 'list',
         options: genders,
-        colors: booleanColorsFunction
+        colors: mapColorToDictionaryFunction({
+            Male: '#FA6019',
+            Female: '#4E98C6'
+        })
     }
 };
 
@@ -190,13 +200,21 @@ var dataSetMapping = {
             description: 'Ambulance Called',
             type: 'list',
             options: booleans,
-            colors: booleanColorsFunction
+            colors: mapColorToDictionaryFunction(yesNoMap)
         },
         group: {},
         hit_and_run: {},
-        light_conditions: {},
+        light_conditions: {
+            description: 'Light Conditions'
+        },
         location: {},
-        road_conditions: {},
+        road_conditions: {
+            description: 'Road Conditions',
+            colors: mapColorToDictionaryFunction({
+                Dry: '#FFA500',
+                Wet: '#4E98C6'
+            })
+        },
         road_defects: {},
         timestamp: {},
         type: {},
@@ -226,7 +244,10 @@ var dataSetMapping = {
                 }
             }
         },
-        workzone: {}
+        workzone: {
+            description: 'Workzone',
+            colors: mapColorToDictionaryFunction(yesNoMap)
+        }
     },
     driver: driver,
     location: {
