@@ -55,11 +55,11 @@ describe("app.js", function() {
         });
 
         it('description("biker","alcohol") returns a human readable value', function() {
-            expect(dataSettings.description('biker','alcohol')).toEqual('Bicyclist Drunk?');
+            expect(dataSettings.description('biker','alcohol')).toEqual('Bicyclist Intoxicated');
         });
 
         it('data("biker","alcohol") returns biker.alcohol data', function() {
-            expect(dataSettings.data('biker','alcohol').description).toEqual('Bicyclist Drunk?');
+            expect(dataSettings.data('biker','alcohol').description).toEqual('Bicyclist Intoxicated');
         });
     });
 });
