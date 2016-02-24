@@ -1,10 +1,10 @@
-var OCEM = angular.module('BikeSafety', ['ngRoute', 'ui.bootstrap', 'ui.mask','firebase', 'leaflet-directive']);
+var OCEM = angular.module('BikeSafety', ['ngRoute', 'ui.bootstrap', 'ui.mask','firebase', 'leaflet-directive', 'LocalStorageModule']);
 
 var firebaseURL = "https://bikesafetytwo.firebaseio.com/";
 
 OCEM.constant('_',window._);
 
-OCEM.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+OCEM.config(['$routeProvider', '$locationProvider', 'localStorageServiceProvider', function($routeProvider, $locationProvider, localStorageServiceProvider) {
     $locationProvider.html5Mode(true);
     $routeProvider
     .when('/', {
@@ -18,6 +18,8 @@ OCEM.config(['$routeProvider', '$locationProvider', function($routeProvider, $lo
     .otherwise({
         redirectTo: '/'
     });
+
+    localStorageServiceProvider.setPrefix('bikesafety');
 }]);
 
 function makeMapColoredLinearly(arr,colors) {
@@ -284,12 +286,22 @@ OCEM.service('getPaths', function($http) {
     return $http.get('/data/durham-bike-lanes.topojson');
 });
 
-OCEM.service('getCrashes', function($q, $firebase) {
-    $('#pleaseWaitDialog').modal('show');
+OCEM.service('getCrashes', function($q, $firebase, localStorageService) {
     var deferred = $q.defer();
+    
+    // see if we already have the crash data - its updated SOO rarely that it
+    // doesn't make sense to poll for it every time:
+    var cachedData = localStorageService.get('getCrashes');
+    if (cachedData) {
+        deferred.resolve(cachedData);
+        return deferred.promise;
+    }
+
+    $('#pleaseWaitDialog').modal('show');
     var ref = new Firebase(firebaseURL +'/crashes');
     ref.orderByChild('location/county').equalTo('Durham').once('value', function(snapshot){
         deferred.resolve(snapshot.val());
+        localStorageService.set('getCrashes',snapshot.val());
         $('#pleaseWaitDialog').modal('hide');
     });
     return deferred.promise;

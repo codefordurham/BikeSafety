@@ -54,4 +54,5 @@ function ($scope, leafletData) {
     $scope.$watch('filteredCrashes', callUpdateFnWithD3);
     $scope.$watch('selectedOption', callUpdateFnWithD3);
     $scope.$watch('showCrashes', callUpdateFnWithD3);
+    $scope.$watch('leafletLoaded', callUpdateFnWithD3);
 }]);
