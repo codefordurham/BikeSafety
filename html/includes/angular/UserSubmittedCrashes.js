@@ -48,6 +48,9 @@ function ($scope, leafletData) {
         }
         updateMapFn($scope.d3selection, $scope.d3projection);
     };
+    $scope.$on('leafletDirectiveMap.zoomend', function(evt) {
+        updateMapFn($scope.d3selection, $scope.d3projection);
+    });
     $scope.$watch('filteredCrashes', callUpdateFnWithD3);
     $scope.$watch('selectedOption', callUpdateFnWithD3);
     $scope.$watch('showCrashes', callUpdateFnWithD3);

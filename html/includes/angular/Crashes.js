@@ -45,6 +45,9 @@ function ($scope, leafletData) {
         }
         updateMapFn($scope.d3selection, $scope.d3projection);
     });
+    $scope.$on('leafletDirectiveMap.zoomend', function(evt) {
+        updateMapFn($scope.d3selection, $scope.d3projection);
+    });
     var callUpdateFnWithD3 = function() {
         if (!$scope.showCrashes) {
             $scope.d3selection.selectAll('.crash').remove();
