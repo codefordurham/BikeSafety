@@ -149,6 +149,16 @@ biker.direction = {
     description: 'Direction',
     colors: unknownColoringFunction
 };
+biker.had_helmet = {
+    options: ["Unknown", "Yes", "No"],
+    description: "Had Helmet",
+    colors: unknownColoringFunction
+};
+biker.had_lights = {
+    options: ["Unknown", "Yes", "No"],
+    description: "Had Lights",
+    colors: unknownColoringFunction
+};
 _.each(biker, function(v) {
     v.description = 'Bicyclist '+ v.description;
 });

@@ -78,6 +78,8 @@ function ($scope, $location, getCrashesUserSubmitted, dataSettings, leafletData)
   $scope.bike_sex = "Unknown";
   $scope.bike_race = "Unknown";
   $scope.bike_alcohol = "Unknown";
+  $scope.bike_had_helmet = "Unknown";
+  $scope.bike_had_lights = "Unknown";
   $scope.driver_injury = "Unknown";
   $scope.driver_sex = "Unknown";
   $scope.driver_race = "Unknown";
@@ -144,7 +146,9 @@ function ($scope, $location, getCrashesUserSubmitted, dataSettings, leafletData)
                 injury: $scope.bike_injury,
                 sex: $scope.bike_sex,
                 race: $scope.bike_race,
-                alcohol: $scope.bike_alcohol
+                alcohol: $scope.bike_alcohol,
+                had_lights: $scope.bike_had_lights,
+                had_helmet: $scope.bike_had_helmet
             },
             driver: {
                 injury: $scope.driver_injury,
