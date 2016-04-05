@@ -35,7 +35,7 @@ Angular works directly with [Firebase](https://www.firebase.com/). The Angular A
 The server is an [express server] (expressjs.com). It serves static content (i.e. the static angular files) and (converts the Jade templates into HTML??).
 
 
-**Database**: The database is hosted on [Firebase](http://firebase.com). Our Database [is this link](https://bikesafety.firebaseio.com/).
+**Database**: The database is hosted on [Firebase](http://firebase.com). Our Database [is this link](https://bikesafetytwo.firebaseio.com/).
 
 Run
 ===
