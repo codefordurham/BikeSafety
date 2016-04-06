@@ -27,6 +27,11 @@ function ($scope, $location, leafletData, getCrashes, getCrashesUserSubmitted, d
     $scope.keyToHumanReadables['driver.sex'] = dataSettings.description('driver','sex');
     $scope.keyToHumanReadables['driver.estimated_speed'] = dataSettings.description('driver','estimated_speed');
     $scope.keyToHumanReadables['driver.vehicle_type'] = dataSettings.description('driver','vehicle_type');
+    $scope.keyToHumanReadables['location.class'] = dataSettings.description('location','class');
+    $scope.keyToHumanReadables['location.configuration'] = dataSettings.description('location','configuration');
+    $scope.keyToHumanReadables['location.feature'] = dataSettings.description('location','feature');
+    $scope.keyToHumanReadables['location.surface'] = dataSettings.description('location','surface');
+    $scope.keyToHumanReadables['location.traffic_control'] = dataSettings.description('location','traffic_control');
 
     // Get the schema metadata for an option, or the data for an option.
     //

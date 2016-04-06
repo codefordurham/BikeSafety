@@ -265,19 +265,47 @@ var dataSetMapping = {
     location: {
         characteristics: {},
         city: {},
-        class: {},
-        configuration: {},
+        class: {
+            description: 'Road Type'
+        },
+        configuration: {
+            description: 'Road Division'
+        },
         county: {},
         development: {},
-        feature: {},
+        feature: {
+            description: 'Road Feature'
+        },
         lanes: {},
         latitude: {},
         longitude: {},
         region: {},
         rural_urban: {},
         speed_limit: {},
-        surface: {},
-        traffic_control: {}
+        surface: {
+            description: 'Surface',
+            colors: mapColorToDictionaryFunction({
+              'Smooth Asphalt': '#e377c2',
+              'Coarse Asphalt': '#393b79',
+              'Concrete': '#ffbb78',
+              'Grooved Concrete': '#8c564b',
+              'Other': '#aaaaaa'
+            })
+        },
+        traffic_control: {
+            description: 'Traffic Control',
+            colors: mapColorToDictionaryFunction({
+              'No Control Present': '#8c564b',
+              'Stop Sign': '#d62728',
+              'Stop And Go Signal': '#2ca02c',
+              'Double Yellow Line, No Passing Zone': '#bcbd22',
+              'Missing': UNKNOWN_COLOR,
+              'Human Control': '#1f77b4',
+              'Yield Sign': '#ff7f0e',
+              'Other': UNKNOWN_COLOR
+            }
+            )
+        }
     }
 };
 
@@ -298,7 +326,7 @@ OCEM.service('getPaths', function($http) {
 
 OCEM.service('getCrashes', function($q, $firebase, localStorageService) {
     var deferred = $q.defer();
-    
+
     // see if we already have the crash data - its updated SOO rarely that it
     // doesn't make sense to poll for it every time:
     var cachedData = localStorageService.get('getCrashes');
