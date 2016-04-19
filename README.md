@@ -69,9 +69,7 @@ To convert the geojson file to topojson:
 
 ## Crash Data
 
-Data is read from [Code for America Socrata](https://brigades.opendatanetwork.com/TRANSPORTATION/North-Carolina-Bicycle-Crash-Data/5tve-iede), supplied by the NCDOT bi-annually. We migrate and clean
-the data. If the data changes or the cleanup process changes, one should
-download the new CSV data and import it:
+Data is read from [Code for America Socrata](http://www.arcgis.com/home/item.html?id=b4fcdc266d054a1ca075b60715f88aef), supplied by the NCDOT bi-annually. We migrate and clean the data. If the data changes or the cleanup process changes, one should download the new CSV data and import it:
 
 1. Data is stored in the data/ directory.
 2. Start the server with Firebase credentials:
