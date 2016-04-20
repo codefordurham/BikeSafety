@@ -239,22 +239,13 @@ var dataSetMapping = {
                 'Cloudy',
                 'Rain'
             ],
-            colors: function(d) {
-                switch(d) {
-                    case 'Unknown':
-                        return UNKNOWN_COLOR;
-                    case 'Clear':
-                        return '#aec7e8';
-                    case 'Cloudy':
-                        return '#c5b0d5';
-                    case 'Rain':
-                        return '#1f77b4';
-                    case 'Other':
-                        return '#e377c2';
-                    default:
-                        return UNKNOWN_COLOR;
-                }
-            }
+            colors: mapColorToDictionaryFunction({
+              'Clear': '#aec7e8',
+              'Cloudy': '#c5b0d5',
+              'Rain': '#1f77b4',
+              'Other': '#e377c2',
+              'Unknown': UNKNOWN_COLOR
+            })
         },
         workzone: {
             description: 'Workzone',
@@ -276,7 +267,22 @@ var dataSetMapping = {
         feature: {
             description: 'Road Feature'
         },
-        lanes: {},
+        lanes: {
+            description: 'Lanes',
+            type: 'list',
+            options: [
+              '1 lane',
+              '2 lanes',
+              '3 lanes',
+              '4 lanes',
+              '5 lanes',
+              '6 lanes',
+              '7 lanes',
+              '8 lanes',
+              'Unknown'
+            ],
+            colors: unknownColoringFunction
+        },
         latitude: {},
         longitude: {},
         region: {},
