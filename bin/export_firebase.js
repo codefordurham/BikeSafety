@@ -1,6 +1,6 @@
 var firebase = require('../lib/firebase');
 
-if (process.argv.length < 3) {
+if (process.argv.length < 4) {
     console.log('Script requires two arguments:');
     console.log('  - firebase URL');
     console.log('  - firebase token');
@@ -11,4 +11,4 @@ if (process.argv.length < 3) {
 var url = process.argv[process.argv.length - 2];
 var token = process.argv[process.argv.length - 1];
 
-firebase.exportTable(url,token,process.exit);
+firebase.exportTable(url, token, process.exit);

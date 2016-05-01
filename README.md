@@ -75,20 +75,21 @@ Data is read from [Code for America Socrata](http://www.arcgis.com/home/item.htm
 2. Start the server with Firebase credentials:
 
 ```
-# export both NCDOT and user submitted bicyclist crashes to local JSON files
+# export both NCDOT and user-submitted bicyclist crashes to local JSON files
 npm run export-bicyclist-crashes
 
-# export NCDOT pedestrian crashes to local JSON file
+# export both NCDOT and user-submitted pedestrian crashes to local JSON files
 npm run export-pedestrian-crashes
 
-# export NCDOT and user submitted bicyclist and pedestrian crashes to local JSON files
+# export NCDOT and user-submitted bicyclist and pedestrian crashes to local JSON files
 npm run export-all-crashes
 
 # recreate crashes database from NCDOT data.
 npm run create-firebase
 
-# replace crashes database with contents of local JSON file:
-npm run import-firebase -- crashes bicyclist_crashes.json
-# replace user submitted crashes database with contents of local JSON file:
-npm run import-firebase -- crashes_user_submitted bicyclist_crashes_user_submitted.json
+# replace Firebase table with contents of local JSON file:
+npm run import-firebase -- <table name> <local file>
+
+# delete a table from Firebase
+npm run delete-firebase -- <table name>
 ```
