@@ -13,18 +13,18 @@ A snapshot of the master branch is [on heroku](http://bikesafetee.herokuapp.com/
 Overview
 ========
 
-The project uses [Angular](https://angularjs.org/) and [Express](http://expressjs.com/) for the frontend and backend respectively. 
+The project uses [Angular](https://angularjs.org/) and [Express](http://expressjs.com/) for the frontend and backend respectively.
 
 The project uses NPM to manage server side dependences and bower for angular dependencies. The `npm install` will install both of these dependencies for you.
 
 **Frontend**
 
-Angular works directly with [Firebase](https://www.firebase.com/). The Angular App uses [Leaflet](http://leafletjs.com/) as the mapping system. Firebase is used to store the NCDOT bicycle accident data. [Jade](http://jade-lang.com/) template renders the html pages. 
+Angular works directly with [Firebase](https://www.firebase.com/). The Angular App uses [Leaflet](http://leafletjs.com/) as the mapping system. Firebase is used to store the NCDOT bicycle accident data. [Jade](http://jade-lang.com/) template renders the html pages.
 
 [*Main Controllers*](https://github.com/BikeSafety/BikeSafety/tree/master/html/includes/angular)
 
 * [app.js](https://github.com/BikeSafety/BikeSafety/blob/master/html/includes/angular/app.js) loads the data and starts the leaflet map
-* [MainMap.js](https://github.com/BikeSafety/BikeSafety/blob/master/html/includes/angular/MainMap.js) is the angular controller that controls the map, makes its full-screen map and configures map legend 
+* [MainMap.js](https://github.com/BikeSafety/BikeSafety/blob/master/html/includes/angular/MainMap.js) is the angular controller that controls the map, makes its full-screen map and configures map legend
 * [Crashes.js](https://github.com/BikeSafety/BikeSafety/blob/master/html/includes/angular/Crashes.js) is responsible for drawing the dot in reference to crashes on the map
 * [Paths.js](https://github.com/BikeSafety/BikeSafety/blob/master/html/includes/angular/Paths.js) is responsible for drawing the bicycle paths on the map
 * [UserSubmittedCrashes.js](https://github.com/BikeSafety/BikeSafety/blob/master/html/includes/angular/UserSubmittedCrashes.js) draws the user submitted square dots on the map
@@ -75,14 +75,20 @@ Data is read from [Code for America Socrata](http://www.arcgis.com/home/item.htm
 2. Start the server with Firebase credentials:
 
 ```
-# export both crashes and user submitted crashes to local JSON files
-npm run export-firebase
+# export both NCDOT and user submitted bicyclist crashes to local JSON files
+npm run export-bicyclist-crashes
+
+# export NCDOT pedestrian crashes to local JSON file
+npm run export-pedestrian-crashes
+
+# export NCDOT and user submitted bicyclist and pedestrian crashes to local JSON files
+npm run export-all-crashes
 
 # recreate crashes database from NCDOT data.
 npm run create-firebase
 
 # replace crashes database with contents of local JSON file:
-npm run import-firebase -- crashes crashes.json
+npm run import-firebase -- crashes bicyclist_crashes.json
 # replace user submitted crashes database with contents of local JSON file:
-npm run import-firebase -- crashes_user_submitted crashes_user_submitted.json
+npm run import-firebase -- crashes_user_submitted bicyclist_crashes_user_submitted.json
 ```
