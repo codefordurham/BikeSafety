@@ -23,6 +23,7 @@ module.exports = function(config) {
       'html/includes/bower/firebase/firebase.js',
       'html/includes/bower/angularfire/dist/angularfire.js',
       'html/includes/bower/angular-leaflet-directive/dist/angular-leaflet-directive.min.js',
+      'html/includes/bower/angular-local-storage/dist/angular-local-storage.min.js',
       'html/includes/scripts/ui-utils.js',
       'html/includes/bower/d3/d3.js',
       'html/includes/bower/lodash/lodash.js',
