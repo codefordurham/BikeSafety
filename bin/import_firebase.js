@@ -1,7 +1,7 @@
 var associateCrashesToRoads = require('../lib/associateCrashesToRoads');
 var firebase = require('../lib/firebase');
 
-if (process.argv.length < 5) {
+if (process.argv.length < 6) {
   console.log('Script requires four arguments:');
   console.log('  - firebase URL');
   console.log('  - firebase token');
@@ -11,8 +11,8 @@ if (process.argv.length < 5) {
 }
 
 var jsonFile = process.argv.pop();
-var database = process.argv.pop();
+var table = process.argv.pop();
 var token = process.argv.pop();
 var url = process.argv.pop();
 
-firebase.createTableFromJSON(url, database,token,jsonFile, process.exit);
+firebase.createTableFromJSON(url, table, token, jsonFile, process.exit);
