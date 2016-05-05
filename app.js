@@ -1,33 +1,31 @@
 var express = require('express'),
+    favicon = require('serve-favicon'),
+    static = require('serve-static'),
+    cookieParser = require('cookie-parser'),
+    bodyParser = require('body-parser'),
+    methodOverride = require('method-override'),
+    errorHandler = require('errorhandler'),
+    routes = require('./routes/GUI.js'),
     path = require('path'),
-    http = require('http'),
     nconf = require('nconf');
 
-//NConf Configuration
 nconf.env().file({ file: 'settings.json' });
 
-//Express Configuration
 var app = express();
 
-app.configure(function(){
-    app.set('port', process.env.PORT || 3000);
-    app.set('views', __dirname + '/html/src');
-    app.set('view engine', 'jade');
-    app.use(express.favicon());
-    //app.use(express.logger('dev'));
-    app.use(express.cookieParser());
-    app.use(express.urlencoded());
-    app.use(express.json());
-    app.use(express.methodOverride());
-    app.use(app.router);
-    app.use(express.static(path.join(__dirname, 'html/includes')));
-    app.engine('html', require('ejs').renderFile);
-});
+app.set('port', process.env.PORT || 3000);
+app.set('views', path.join(__dirname, 'html/src'));
+app.set('view engine', 'jade');
+app.use(favicon(path.join(__dirname, 'favicon.ico')));
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(methodOverride());
+app.use(static(path.join(__dirname, 'html/includes')));
 
-app.configure('development', function(){
-    app.use(express.errorHandler());
-});
+routes(app);
 
-require('./routes/GUI.js')(app);
+if (app.settings.env == 'development')
+    app.use(errorHandler());
 
 module.exports = app;

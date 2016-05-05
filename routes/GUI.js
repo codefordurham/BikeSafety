@@ -8,7 +8,7 @@ module.exports = function (app) {
     });
 
     app.get('/data/:fileName', function (req, res) {
-        res.sendfile('/data/' + req.params.fileName, {root: './html/src/'});
+        res.sendFile('/data/' + req.params.fileName, {root: './html/src/'});
     });
 
     app.get('/partials/Index', function (req, res) {
