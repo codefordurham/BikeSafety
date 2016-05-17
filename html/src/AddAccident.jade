@@ -64,11 +64,11 @@ div.container-fluid#add_accident
 
                     label {{ dataSettings.description('biker', 'had_helmet') }}:
                     select.form-control(ng-model="bike_had_helmet")
-                      option(ng-repeat="v in dataSettings.data('biker', 'had_helmet').options"){{v}}
+                      option(ng-repeat="v in dataSettings.data('biker', 'had_helmet').options") {{v}}
 
                     label {{ dataSettings.description('biker', 'had_lights') }}:
                     select.form-control(ng-model="bike_had_lights")
-                      option(ng-repeat="v in dataSettings.data('biker', 'had_lights').options"){{v}}
+                      option(ng-repeat="v in dataSettings.data('biker', 'had_lights').options") {{v}}
 
             div.col-md-4
               div.panel.panel-default
