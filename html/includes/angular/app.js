@@ -1,7 +1,5 @@
 var OCEM = angular.module('BikeSafety', ['ngRoute', 'ui.bootstrap', 'ui.mask','firebase', 'leaflet-directive', 'LocalStorageModule']);
 
-var firebaseURL = "https://bikesafetytwo.firebaseio.com/";
-
 OCEM.constant('_',window._);
 
 OCEM.config(['$routeProvider', '$locationProvider', 'localStorageServiceProvider', function($routeProvider, $locationProvider, localStorageServiceProvider) {
@@ -333,6 +331,14 @@ OCEM.service('getPaths', function($http) {
 OCEM.service('getCrashes', function($q, $firebase, localStorageService) {
     var deferred = $q.defer();
 
+    var config = {
+      apiKey: "AIzaSyCdqcOoSifQhH_RbJmtkFZS94l9jMwAcUc",
+      authDomain: "bikesafetytwo.firebaseapp.com",
+      databaseURL: "https://bikesafetytwo.firebaseio.com",
+      storageBucket: "bikesafetytwo.appspot.com",
+    };
+    firebase.initializeApp(config);
+
     // see if we already have the crash data - its updated SOO rarely that it
     // doesn't make sense to poll for it every time:
     var cachedData = localStorageService.get('getCrashes');
@@ -342,7 +348,7 @@ OCEM.service('getCrashes', function($q, $firebase, localStorageService) {
     }
 
     $('#pleaseWaitDialog').modal('show');
-    var ref = new Firebase(firebaseURL +'/crashes');
+    var ref = firebase.database().ref('bicyclist_crashes');
     ref.orderByChild('location/county').equalTo('Durham').once('value', function(snapshot){
         deferred.resolve(snapshot.val());
         localStorageService.set('getCrashes',snapshot.val());
@@ -354,7 +360,7 @@ OCEM.service('getCrashes', function($q, $firebase, localStorageService) {
 OCEM.service('getCrashesUserSubmitted', function($q, $firebase) {
     $('#pleaseWaitDialog').modal('show');
     var deferred = $q.defer();
-    var ref = new Firebase(firebaseURL +'/crashes_user_submitted');
+    var ref = firebase.database().ref('bicyclist_crashes_user_submitted');
     ref.once('value', function(snapshot){
         deferred.resolve({
           data: _.values(snapshot.val()),
